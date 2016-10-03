@@ -1,0 +1,5 @@
+syntax: glob
+*.bak
+stm32ecm THUMB Debug\*
+stm32ecm THUMB Release\*
+*.hzs
