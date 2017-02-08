@@ -227,8 +227,12 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   /* Initialize LL Driver */
   HAL_PCD_Init(pdev->pData);
 
-  /* start address for PMA allocation */
-  pma_address = 0;
+  /*
+  start address for PMA allocation:
+  ST's USB stack forces a BTABLE_ADDRESS at the start of PMA memory.  The BTABLE occupied 8 bytes per endpoint.
+  we position the EP buffers starting immediately after this
+  */
+  pma_address = 8 * MAX((sizeof(hpcd.IN_ep) / sizeof(*hpcd.IN_ep)), (sizeof(hpcd.OUT_ep) / sizeof(*hpcd.OUT_ep)));
 
   /* PMA allocation for EP0 */
   HAL_PCDEx_PMAConfig(pdev->pData, 0x00, PCD_SNG_BUF, pma_address =+ USB_MAX_EP0_SIZE);
