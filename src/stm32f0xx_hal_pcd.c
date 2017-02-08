@@ -156,19 +156,19 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
   HAL_PCD_MspInit(hpcd);
 
  /* Init endpoints structures */
- for (i = 0; i < hpcd->Init.dev_endpoints ; i++)
+ for (i = 0; i < (sizeof(hpcd->IN_ep) / sizeof(*hpcd->IN_ep)); i++)
  {
    /* Init ep structure */
    hpcd->IN_ep[i].is_in = 1;
    hpcd->IN_ep[i].num = i;
-   /* Control until ep is actvated */
+   /* Control until ep is activated */
    hpcd->IN_ep[i].type = PCD_EP_TYPE_CTRL;
    hpcd->IN_ep[i].maxpacket =  0;
    hpcd->IN_ep[i].xfer_buff = 0;
    hpcd->IN_ep[i].xfer_len = 0;
  }
  
- for (i = 0; i < hpcd->Init.dev_endpoints ; i++)
+ for (i = 0; i < (sizeof(hpcd->OUT_ep) / sizeof(*hpcd->OUT_ep)); i++)
  {
    hpcd->OUT_ep[i].is_in = 0;
    hpcd->OUT_ep[i].num = i;

@@ -93,10 +93,6 @@ typedef enum
   */
 typedef struct
 {
-  uint32_t dev_endpoints;        /*!< Device Endpoints number.
-                                      This parameter depends on the used USB core.   
-                                      This parameter must be a number between Min_Data = 1 and Max_Data = 15 */    
-
   uint32_t speed;                /*!< USB Core speed.
                                       This parameter can be any value of @ref PCD_Core_Speed                 */        
                              
