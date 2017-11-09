@@ -115,7 +115,7 @@ __ALIGN_BEGIN static const struct configuration_1 USBD_ECM_CfgFSDesc __ALIGN_END
   },
 };
 
-const uint8_t *USBD_CfgFSDesc_pnt = (const uint8_t *)&USBD_ECM_CfgFSDesc;
+const uint8_t *const USBD_CfgFSDesc_pnt = (const uint8_t *)&USBD_ECM_CfgFSDesc;
 const uint16_t USBD_CfgFSDesc_len = sizeof(USBD_ECM_CfgFSDesc);
 
 /* USB Standard Device Descriptor */
