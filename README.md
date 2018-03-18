@@ -9,9 +9,17 @@ As presently written, the microcontroller has the static IP address 192.168.200.
 
 Testing was done with a Linux host.
 
-## Requirements
+## Build Requirements
 
-[Rowley Crossworks for ARM](http://www.rowley.co.uk/arm/) is needed to compile this code.  The source code is gcc-friendly, but you must adapt the code yourself if you wish to adopt a different tool chain.
+One approach is to use [Rowley Crossworks for ARM](http://www.rowley.co.uk/arm/) to compile this code.  It is not free software, but has been my favorite go-to ARM development tool for a decade and counting.
+
+*OR*
+
+Use the Makefile.  With this approach, the code can be built using only open-source software.  In Ubuntu-derived distributions, this is likely achieved with as little as:
+
+```
+sudo apt-get install gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential
+```
 
 ## Sanity Checklist If Customizing
 
