@@ -1,0 +1,5 @@
+*.bak
+stm32ecm2 THUMB Debug/*
+stm32ecm2 THUMB Release/*
+*.hzs
+
