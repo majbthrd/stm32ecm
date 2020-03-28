@@ -9,7 +9,11 @@ Utilizing a copy of [lwIP 1.4.1](https://savannah.nongnu.org/projects/lwip/) fro
 
 This is related to [D21ecm](https://github.com/majbthrd/D21ecm/), another CDC-ECM implementation (but for the Atmel SAMD21).
 
-Testing was done with a Linux host.
+Testing was done with both Linux and Mac OS X Lion 10.7.5 hosts.
+
+## Alternatives
+
+Note that my priority going forward is to add the same and additional capabilities to [TinyUSB](https://github.com/hathach/tinyusb); TinyUSB has the added benefit of supporting many different processors.
 
 ## Usage
 

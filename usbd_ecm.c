@@ -80,6 +80,13 @@ static USBD_HandleTypeDef *registered_pdev;
 
 __ALIGN_BEGIN static uint8_t ecm_rx_buffer[ECM_MAX_SEGMENT_SIZE] __ALIGN_END;
 __ALIGN_BEGIN static uint8_t ecm_tx_buffer[ECM_MAX_SEGMENT_SIZE] __ALIGN_END;
+__ALIGN_BEGIN static USBD_SetupReqTypedef notify __ALIGN_END =
+{
+  .bmRequest = 0x21,
+  .bRequest = 0 /* NETWORK_CONNECTION */,
+  .wValue = 1 /* Connected */,
+  .wLength = 0,
+};
 
 static int ecm_rx_index;
 static bool can_xmit;
@@ -140,6 +147,12 @@ static uint8_t USBD_ECM_DeInit (USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
 static uint8_t USBD_ECM_Setup (USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
+  if (0x43 /* SET_ETHERNET_PACKET_FILTER */ == req->bRequest)
+  {
+    notify.wIndex = req->wIndex;
+    USBD_LL_Transmit(pdev, ECM_NOTIFICATION_IN_EP, (uint8_t *)&notify, sizeof(notify));
+  }
+
   return USBD_OK;
 }
 
@@ -244,9 +257,12 @@ uint8_t USBD_ECM_RegisterInterface(USBD_HandleTypeDef *pdev)
 void USBD_ECM_PMAConfig(PCD_HandleTypeDef *hpcd, uint32_t *pma_address)
 {
   /* allocate PMA memory for all endpoints associated with ECM */
-  HAL_PCDEx_PMAConfig(hpcd, ECM_DATA_IN_EP,  PCD_SNG_BUF, *pma_address =+ ECM_DATA_IN_SZ);
-  HAL_PCDEx_PMAConfig(hpcd, ECM_DATA_OUT_EP, PCD_SNG_BUF, *pma_address =+ ECM_DATA_OUT_SZ);
-  HAL_PCDEx_PMAConfig(hpcd, ECM_NOTIFICATION_IN_EP,  PCD_SNG_BUF, *pma_address =+ ECM_NOTIFICATION_IN_SZ);
+  HAL_PCDEx_PMAConfig(hpcd, ECM_DATA_IN_EP,  PCD_SNG_BUF, *pma_address);
+  *pma_address += ECM_DATA_IN_SZ;
+  HAL_PCDEx_PMAConfig(hpcd, ECM_DATA_OUT_EP, PCD_SNG_BUF, *pma_address);
+  *pma_address += ECM_DATA_OUT_SZ;
+  HAL_PCDEx_PMAConfig(hpcd, ECM_NOTIFICATION_IN_EP,  PCD_SNG_BUF, *pma_address);
+  *pma_address += ECM_NOTIFICATION_IN_SZ;
 }
 
 bool usb_ecm_can_xmit(void)

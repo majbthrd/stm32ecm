@@ -42,7 +42,7 @@
 #define ECM_DATA_IN_EP         0x82
 #define ECM_DATA_OUT_EP        0x03
 
-#define ECM_NOTIFICATION_IN_SZ 0x08
+#define ECM_NOTIFICATION_IN_SZ 64
 #define ECM_DATA_IN_SZ         USB_FS_MAX_PACKET_SIZE
 #define ECM_DATA_OUT_SZ        USB_FS_MAX_PACKET_SIZE
 
