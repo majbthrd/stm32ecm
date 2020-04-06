@@ -9,7 +9,7 @@ Utilizing a copy of [lwIP 1.4.1](https://savannah.nongnu.org/projects/lwip/) fro
 
 This is related to [D21ecm](https://github.com/majbthrd/D21ecm/), another CDC-ECM implementation (but for the Atmel SAMD21).
 
-Testing was done with both Linux and Mac OS X Lion 10.7.5 hosts.
+Note that this project functions with both Linux and Mac OS X Lion 10.7.5 hosts, but not with Mac OS X El Capitan 10.11.6 nor macOS High Sierra 10.13.16.
 
 ## Alternatives
 
